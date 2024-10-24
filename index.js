@@ -35,3 +35,10 @@ if(age >=18){
     console.log("anjayyyy7uyyy6y6y7");
 }
 
+
+
+//deklarasi variabel
+// let, const, 
+//nilai let bisa di ubah
+// nilai const tidak bisa di ubah
+
