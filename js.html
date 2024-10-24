@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Pendaftaran Siswa</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ff7eb3, #b3cde0); /* Gradasi pink ke biru */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-purple-600 text-white p-4">
+        <h1 class="text-2xl font-bold text-center">Pendaftaran Siswa</h1>
+    </header>
+
+    <!-- Formulir Pendaftaran -->
+    <div class="flex items-center justify-center py-10">
+        <form id="formStudent" class="bg-pink-200 bg-opacity-90 p-6 rounded-lg shadow-md w-96">
+            <h2 class="text-lg font-bold mb-4 text-center text-purple-700">Isi Data Berikut</h2>
+            
+            <label for="nama" class="block text-sm font-medium text-gray-900">Nama</label>
+            <input type="text" id="nama" placeholder="Masukkan Nama"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500" />
+
+            <label for="kelas" class="block text-sm font-medium text-gray-900 mt-4">Kelas</label>
+            <input type="text" id="kelas" placeholder="Masukkan Kelas"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-purple-500 focus:border-purple-500" />
+
+            <button type="submit" class="mt-6 w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-500">Daftar</button>
+            <p id="errorMessage" class="text-red-500 text-sm mt-2 hidden"></p>
+        </form> 
+    </div>
+
+    <!-- Tabel Daftar Siswa -->
+    <div class="flex items-center justify-center py-6">
+        <table id="tableStudent" class="min-w-full bg-pink-100 divide-y divide-gray-300 mt-4 shadow-lg">
+            <thead class="bg-purple-600 text-white">
+                <tr>
+                    <th class="px-4 py-2 text-left">No</th>
+                    <th class="px-4 py-2 text-left">Nama</th>
+                    <th class="px-4 py-2 text-left">Kelas</th>
+                </tr>
+            </thead>
+            <tbody id="bodyTableStudent">
+                <!-- Data akan ditambahkan di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-purple-600 text-white text-center py-4">
+        <p>&copy; 2024 Pendaftaran Siswa. Semua Hak Dilindungi.</p>
+    </footer>
+
+    <script>
+        let studentCount = 0; // Variabel untuk menghitung jumlah siswa
+
+        document.getElementById('formStudent').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nama = document.getElementById('nama').value.trim();
+            const kelas = document.getElementById('kelas').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Reset pesan error
+            errorMessage.classList.add('hidden');
+            errorMessage.textContent = '';
+
+            // Validasi input
+            if (!nama && !kelas) {
+                errorMessage.textContent = "Nama dan Kelas tidak boleh kosong!";
+            } else if (!nama || !kelas) {
+                errorMessage.textContent = "Kedua input harus diisi!";
+            } else {
+                const tableBody = document.getElementById('bodyTableStudent');
+                const newRow = document.createElement('tr');
+
+                const noCell = document.createElement('td');
+                studentCount++;
+                noCell.textContent = studentCount;
+                newRow.appendChild(noCell);
+
+                const namaCell = document.createElement('td');
+                namaCell.textContent = nama;
+                newRow.appendChild(namaCell);
+
+                const kelasCell = document.createElement('td');
+                kelasCell.textContent = kelas;
+                newRow.appendChild(kelasCell);
+
+                tableBody.appendChild(newRow);
+
+                // Kosongkan input setelah submit
+                document.getElementById('nama').value = '';
+                document.getElementById('kelas').value = '';
+            }
+
+            // Tampilkan pesan error jika ada
+            if (errorMessage.textContent) {
+                errorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
